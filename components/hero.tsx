@@ -1,44 +1,29 @@
-import NextLogo from "./next-logo";
-import SupabaseLogo from "./supabase-logo";
+import { Button } from "./ui/button";
+import GoogleSignInButton from "./google-sign-in-button";
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
+import Link from "next/link";
 
-export default function Header() {
-  return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
-      </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
-  );
+export default async function Hero() {
+	const supabase = await createClient();
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
+	return (
+		<div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
+			<h1 className="text-6xl font-bold mb-6">Better Reader</h1>
+			<p className="text-xl mb-8 max-w-2xl text-muted-foreground">
+				Enhance your reading comprehension with AI-powered article analysis,
+				interactive quizzes, and personalized learning recommendations.
+			</p>
+			{user ? (
+				<Link href="/protected/analyze">
+					<Button size="lg">Start Analyzing</Button>
+				</Link>
+			) : (
+				<GoogleSignInButton />
+			)}
+		</div>
+	);
 }
