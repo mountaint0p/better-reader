@@ -48,8 +48,8 @@ export default function MyStudySessionsPage() {
 
 	if (loading) {
 		return (
-			<main className="container mx-auto px-4 py-8 max-w-4xl">
-				<h1 className="text-4xl font-bold mb-8 text-center">
+			<main className="container mx-auto px-4 py-8 max-w-full sm:max-w-4xl">
+				<h1 className="text-2xl md:text-4xl font-bold mb-8 text-center">
 					My Study Sessions
 				</h1>
 				<p className="text-center">Loading study sessions...</p>
@@ -59,8 +59,8 @@ export default function MyStudySessionsPage() {
 
 	if (error) {
 		return (
-			<main className="container mx-auto px-4 py-8 max-w-4xl">
-				<h1 className="text-4xl font-bold mb-8 text-center">
+			<main className="container mx-auto px-4 py-8 max-w-full sm:max-w-4xl">
+				<h1 className="text-2xl md:text-4xl font-bold mb-8 text-center">
 					My Study Sessions
 				</h1>
 				<p className="text-center text-red-500">{error}</p>
@@ -69,8 +69,10 @@ export default function MyStudySessionsPage() {
 	}
 
 	return (
-		<main className="container mx-auto px-4 py-8 max-w-4xl">
-			<h1 className="text-4xl font-bold mb-8 text-center">My Study Sessions</h1>
+		<main className="container mx-auto px-4 py-8 max-w-full sm:max-w-4xl">
+			<h1 className="text-2xl md:text-4xl font-bold mb-8 text-center">
+				My Study Sessions
+			</h1>
 
 			{sessions.length === 0 ? (
 				<div className="text-center">
@@ -80,7 +82,7 @@ export default function MyStudySessionsPage() {
 					</Button>
 				</div>
 			) : (
-				<div className="grid gap-4">
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 					{sessions.map((session) => (
 						<Card
 							key={session.id}
@@ -88,13 +90,13 @@ export default function MyStudySessionsPage() {
 							onClick={() => handleSessionClick(session.id)}
 						>
 							<div className="space-y-2">
-								<h2 className="text-xl font-semibold line-clamp-2">
+								<h2 className="text-lg md:text-xl font-semibold line-clamp-2">
 									{session.title}
 								</h2>
-								<p className="text-sm text-muted-foreground truncate">
+								<p className="text-xs md:text-sm text-muted-foreground truncate">
 									{session.url}
 								</p>
-								<p className="text-sm text-muted-foreground">
+								<p className="text-xs md:text-sm text-muted-foreground">
 									{new Date(session.created_at).toLocaleDateString()}
 								</p>
 							</div>
