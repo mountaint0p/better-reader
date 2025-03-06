@@ -4,29 +4,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-
-interface AnalysisResult {
-	summary: string;
-	context: string;
-	keyTerms: Array<{
-		term: string;
-		definition: string;
-	}>;
-	questions: Array<{
-		question: string;
-		options: string[];
-		correctAnswer: number;
-	}>;
-	shortResponseQuestions: Array<{
-		id: string;
-		question: string;
-	}>;
-	futureResearch: Array<{
-		topic: string;
-		description: string;
-	}>;
-	articleContent: string;
-}
+import { AnalysisResult } from "@/types/analysis";
 
 export default function UrlForm({
 	onSubmit,
@@ -57,8 +35,14 @@ export default function UrlForm({
 
 			const data = await response.json();
 			onSubmit({
-				...data,
-				articleContent: data.articleContent || "",
+				summary: data.summary,
+				context: data.context,
+				keyTerms: data.keyTerms,
+				questions: data.questions,
+				shortResponseQuestions: data.shortResponseQuestions,
+				futureResearch: data.futureResearch,
+				articleContent: data.articleContent,
+				analysisId: data.analysisId,
 			});
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Something went wrong");
