@@ -2,7 +2,6 @@ import { OpenAI } from "openai";
 import { NextResponse } from "next/server";
 import * as cheerio from "cheerio";
 import { createClient } from "@/utils/supabase/server";
-import mockAIOutput from "@/mock_data/mockAIOutput.json";
 
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY,
