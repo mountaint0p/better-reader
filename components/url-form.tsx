@@ -35,6 +35,7 @@ export default function UrlForm({
 
 			const data = await response.json();
 			onSubmit({
+				title: data.title,
 				summary: data.summary,
 				context: data.context,
 				keyTerms: data.keyTerms,
